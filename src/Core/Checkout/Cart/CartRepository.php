@@ -1,24 +1,23 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MailCampaigns\AbandonedCart\Core\Checkout\Cart;
 
 use Doctrine\DBAL\Connection;
+use Shopware\Core\Framework\Log\Package;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 /**
  * @author Twan Haverkamp <twan@mailcampaigns.nl>
  */
+#[Package('MailCampaigns\AbandonedCart')]
 class CartRepository
 {
-    private Connection $connection;
-    private SystemConfigService $systemConfigService;
-
     public function __construct(
-        Connection $connection,
-        SystemConfigService $systemConfigService
+        private readonly Connection $connection,
+        private readonly SystemConfigService $systemConfigService
     ) {
-        $this->connection = $connection;
-        $this->systemConfigService = $systemConfigService;
     }
 
     /**

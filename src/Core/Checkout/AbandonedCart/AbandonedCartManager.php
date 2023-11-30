@@ -1,27 +1,26 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MailCampaigns\AbandonedCart\Core\Checkout\AbandonedCart;
 
 use MailCampaigns\AbandonedCart\Core\Checkout\Cart\CartRepository;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\Log\Package;
 
 /**
  * @author Twan Haverkamp <twan@mailcampaigns.nl>
  */
+#[Package('MailCampaigns\AbandonedCart')]
 class AbandonedCartManager
 {
-    private CartRepository $cartRepository;
-    private EntityRepositoryInterface $abandonedCartRepository;
-
     public function __construct(
-        CartRepository $cartRepository,
-        EntityRepositoryInterface $abandonedCartRepository
+        private readonly CartRepository $cartRepository,
+        private readonly EntityRepository $abandonedCartRepository
     ) {
-        $this->cartRepository = $cartRepository;
-        $this->abandonedCartRepository = $abandonedCartRepository;
     }
 
     /**

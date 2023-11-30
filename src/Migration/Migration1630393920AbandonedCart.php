@@ -1,16 +1,21 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MailCampaigns\AbandonedCart\Migration;
 
 use Doctrine\DBAL\Connection;
-use MailCampaigns\AbandonedCart\Core\Checkout\AbandonedCart\AbandonedCartEntity;
+use Shopware\Core\Framework\Log\Package;
 use Shopware\Core\Framework\Migration\MigrationStep;
 
 /**
  * Creates a table for {@see AbandonedCartEntity}.
  *
  * @author Twan Haverkamp <twan@mailcampaigns.nl>
+ *
+ * @internal
  */
+#[Package('MailCampaigns\AbandonedCart')]
 class Migration1630393920AbandonedCart extends MigrationStep
 {
     /**

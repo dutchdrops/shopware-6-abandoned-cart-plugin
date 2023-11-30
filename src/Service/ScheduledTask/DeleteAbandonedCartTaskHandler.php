@@ -1,32 +1,32 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MailCampaigns\AbandonedCart\Service\ScheduledTask;
 
 use MailCampaigns\AbandonedCart\Core\Checkout\AbandonedCart\AbandonedCartManager;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
+use Shopware\Core\Framework\Log\Package;
 use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 /**
  * @author Twan Haverkamp <twan@mailcampaigns.nl>
+ *
+ * @internal
  */
-class DeleteAbandonedCartTaskHandler extends ScheduledTaskHandler
+#[AsMessageHandler(handles: DeleteAbandonedCartTask::class)]
+#[Package('MailCampaigns\AbandonedCart')]
+final class DeleteAbandonedCartTaskHandler extends ScheduledTaskHandler
 {
-    private AbandonedCartManager $manager;
-    private EntityRepositoryInterface $abandonedCartRepository;
-
-    public function __construct(AbandonedCartManager $manager, EntityRepositoryInterface $scheduledTaskRepository)
-    {
-        $this->manager = $manager;
-
-        parent::__construct($scheduledTaskRepository);
-    }
-
     /**
-     * {@inheritdoc}
+     * @internal
      */
-    public static function getHandledMessages(): iterable
-    {
-        yield DeleteAbandonedCartTask::class;
+    public function __construct(
+        private readonly AbandonedCartManager $manager,
+        EntityRepository $scheduledTaskRepository
+    ) {
+        parent::__construct($scheduledTaskRepository);
     }
 
     public function run(): void

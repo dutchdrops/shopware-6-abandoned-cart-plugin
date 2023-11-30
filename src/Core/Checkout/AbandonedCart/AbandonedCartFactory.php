@@ -1,14 +1,18 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MailCampaigns\AbandonedCart\Core\Checkout\AbandonedCart;
 
 use MailCampaigns\AbandonedCart\Exception\InvalidCartDataException;
 use MailCampaigns\AbandonedCart\Exception\MissingCartDataException;
 use Shopware\Core\Checkout\Cart\Cart;
+use Shopware\Core\Framework\Log\Package;
 
 /**
  * @author Twan Haverkamp <twan@mailcampaigns.nl>
  */
+#[Package('MailCampaigns\AbandonedCart')]
 class AbandonedCartFactory
 {
     /**
